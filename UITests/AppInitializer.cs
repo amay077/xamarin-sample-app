@@ -23,7 +23,7 @@ namespace XamarinSampleApp.UITests
             }
 
             string deviceUDID = Environment.GetEnvironmentVariable("IOS_SIMULATOR_UDID");
-            string bundleID = "your.applications.bundle.id";
+            string bundleID = "com.bitrise.samples.xamarinsampleapp";
 
             return ConfigureApp
                 .iOS
