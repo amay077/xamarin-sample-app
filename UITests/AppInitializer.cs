@@ -11,10 +11,25 @@ namespace XamarinSampleApp.UITests
 		public static IApp StartApp (Platform platform)
 		{
 			if (platform == Platform.Android) {
-				return ConfigureApp.Android.StartApp ();
-			}
+                // steps-xamarin-android-test exports the generated APK path.
+                string apkPath = Environment.GetEnvironmentVariable("ANDROID_APK_PATH");
+                string emulatorSerial = Environment.GetEnvironmentVariable("ANDROID_EMULATOR_SERIAL");
 
-			return ConfigureApp.iOS.StartApp ();
+                return ConfigureApp.Android
+                  .ApkFile(apkPath)
+                  .DeviceSerial(emulatorSerial)
+                  .WaitTimes(new WaitTimes())
+                  .StartApp();
+            }
+
+            string deviceUDID = Environment.GetEnvironmentVariable("IOS_SIMULATOR_UDID");
+            string bundleID = "your.applications.bundle.id";
+
+            return ConfigureApp
+                .iOS
+                .InstalledApp(bundleID)
+                .DeviceIdentifier(deviceUDID)
+                .StartApp();
 		}
 	}
 }
